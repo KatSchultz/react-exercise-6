@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { fetchAllQuotes } from "./services/quotes.services";
+import "./App.css";
+import { useEffect, useState } from "react";
+import { Quote } from "./types";
 
 function App() {
+  const [quotes, setQuotes] = useState<Quote[]>([]);
+
+  useEffect(() => getAllQuotes(), []);
+
+  function getAllQuotes() {
+    fetchAllQuotes().then((response) => setQuotes(response.data));
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={getAllQuotes}>Get Quotes</button>
+      {quotes.map((quote, index) => (
+        <ul key={index}>
+          <li>
+            <h3>{quote.author}</h3>
+            <p>{quote.text}</p>
+          </li>
+        </ul>
+      ))}
     </div>
   );
 }
