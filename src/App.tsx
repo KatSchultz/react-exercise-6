@@ -25,17 +25,23 @@ function App() {
   return (
     <div className="App">
       <div>
-        <h2>Weather Forecast</h2>
-        {weather.map((data) => (
-          <div>
-            <h3>{data.name}</h3>
-            <p>
-              Temperature: {data.temperature} {data.temperatureUnit}
-            </p>
-            <img src={data.icon} alt="" />
-            <p>{data.detailedForecast}</p>
-          </div>
-        ))}
+        <h2 className="text-3xl font-bold">Weather Forecast</h2>
+        <div className="weather-holder flex flex-wrap gap-8 justify-around">
+          {weather.map((data) => (
+            <div className="max-w-sm p-5 flex flex-col w-1/3 items-center min-h-fit bg-slate-200 rounded-lg">
+              <h3 className="font-bold">{data.name}</h3>
+              <p>
+                Temperature: {data.temperature} {data.temperatureUnit}
+              </p>
+              <img
+                className="rounded-med m-3.5 hover:scale-125 duration-300"
+                src={data.icon}
+                alt=""
+              />
+              <p>{data.detailedForecast}</p>
+            </div>
+          ))}
+        </div>
       </div>
       <button onClick={getAllQuotes}>Get Quotes</button>
       {quotes.map((quote, index) => (
